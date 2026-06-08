@@ -1,11 +1,24 @@
 const express = require("express");
-const app= express();
+const path = require("path");
+const app = express();
 
-app.get("/health",(req,res)=>{
+app.use(express.static(path.join(__dirname, "..", "public")));
+
+// contribution from sarang branch
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+})
+
+app.get("/health", (req, res) => {
   res.json({
-    message:"healthy",
+    message: "healthy",
     success: true
   })
+})
+
+
+app.get("/me", (req, res) => {
+  res.send("this is me")
 })
 
 module.exports = app;
